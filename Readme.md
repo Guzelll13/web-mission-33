@@ -22,3 +22,38 @@
 
 - Вопрос 5	 
 > Чтобы добавить пустую папку в Git, можно создать в ней временный файл .gitkeep, который не будет использоваться, но позволит Git отслеживать пустую директорию.
+> 
+
+
+# Mission 3
+
+## Part 0-2
+
+[Link to video](https://disk.yandex.ru/i/T809ea3z76_H8g)
+
+## Part 3
+- Получить список юзернеймов пользователей:
+> SELECT username FROM users;
+
+- Получить кол-во отправленных сообщений каждым пользователем:
+> SELECT u.username, COUNT(m.id) AS number_of_sent_messages
+FROM users u
+LEFT JOIN messages m ON u.id = m.from
+GROUP BY u.username;
+
+- Получить пользователя с самым большим кол-вом полученных сообщений и само количество:
+> SELECT u.username, COUNT(m.id) AS number_of_received_messages
+FROM users u
+LEFT JOIN messages m ON u.id = m.to
+GROUP BY u.username
+ORDER BY number_of_received_messages DESC
+LIMIT 1;
+
+- Получить среднее кол-во сообщений, отправленное каждым пользователем:
+> SELECT AVG(messages_per_user) AS average_messages_sent_per_user
+FROM (
+    SELECT COUNT(id) AS messages_per_user
+    FROM messages
+    GROUP BY "from"
+) AS subquery;
+
